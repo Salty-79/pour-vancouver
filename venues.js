@@ -48,5 +48,18 @@ const venues = [
   //   ],
   //   featured: false                  // Change to true for paid featured listings
   // },
-
+name: "Chop Steakhouse & Bar",
+    neighbourhood: "Richmond",
+    type: "lounge",
+    emoji: "🍺",
+    days: ["mon", "tue", "wed", "thu", "fri"],
+    startTime: "15:00",
+    endTime: "18:00",
+    deals: [
+      "$5 domestic beers",
+      "$6 house wine",
+      "Half-price appetizers"
+    ],
+    featured: false
+  },
 ];
