@@ -106,6 +106,16 @@
       </div>
     </div>
     <div class="row">
+      <div class="field">
+        <label>Phone (optional)</label>
+        <input type="text" id="phone" placeholder="+1 (604) 555-0123" />
+      </div>
+      <div class="field">
+        <label>Website (optional)</label>
+        <input type="text" id="website" placeholder="https://example.com" />
+      </div>
+    </div>
+    <div class="row">
       <div class="field full">
         <label>Featured listing? (paid — shows first with ⭐ badge)</label>
         <select id="featured"><option value="false">No — regular listing</option><option value="true">Yes — featured listing</option></select>
@@ -252,9 +262,12 @@
       return `    {\n      startTime: ${toCode(w.start)},\n      endTime: ${toCode(w.end)},\n      deals: [\n${dealsCode}\n      ]\n    }`;
     }).join(',\n');
 
+    const phone   = document.getElementById('phone').value.trim();
+    const website = document.getElementById('website').value.trim();
     const notesLine = notes ? `\n  notes: "${notes.replace(/"/g, '\\"')}",` : '\n  notes: "",';
-
-    const code = `{\n  name: "${name.replace(/"/g, '\\"')}",\n  neighbourhood: "${hood}",\n  type: "${type}",\n  emoji: "${emoji}",\n  days: ${daysLine},${notesLine}\n  featured: ${featured},\n  hours: [\n${hoursCode}\n  ]\n},`;
+    const phoneLine = `\n  phone: "${phone.replace(/"/g, '\\"')}",`;
+    const websiteLine = `\n  website: "${website.replace(/"/g, '\\"')}",`;
+    const code = `{\n  name: "${name.replace(/"/g, '\\"')}",\n  neighbourhood: "${hood}",\n  type: "${type}",\n  emoji: "${emoji}",\n  days: ${daysLine},${notesLine}\n  featured: ${featured},${phoneLine}${websiteLine}\n  hours: [\n${hoursCode}\n  ]\n},`;
 
     document.getElementById('codeOutput').textContent = code;
     document.getElementById('outputSection').classList.add('visible');

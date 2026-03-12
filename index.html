@@ -16,90 +16,173 @@
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,251,245,0.92); backdrop-filter: blur(12px); border-bottom: 1.5px solid var(--border); padding: 0 clamp(1rem, 4vw, 2.5rem); height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--ink); letter-spacing: -0.02em; }
-    .logo span { color: var(--amber); }
-    .nav-pill { background: var(--ink); color: var(--cream); font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; padding: 0.45rem 1.1rem; border-radius: 100px; border: none; cursor: pointer; transition: background 0.2s; text-transform: uppercase; }
-    .nav-pill:hover { background: var(--amber-dark); }
-    .hero { position: relative; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3.5rem); overflow: hidden; }
-    .hero-bg-circle { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, var(--amber-light) 0%, transparent 70%); top: -200px; right: -150px; opacity: 0.5; pointer-events: none; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--foam); border: 1.5px solid var(--amber); border-radius: 100px; padding: 0.3rem 0.9rem; font-size: 0.78rem; font-weight: 500; color: var(--amber-dark); margin-bottom: 1.2rem; animation: fadeUp 0.5s ease both; }
-    .hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); max-width: 700px; animation: fadeUp 0.5s 0.1s ease both; }
-    .hero h1 em { font-style: italic; color: var(--amber); font-weight: 700; }
-    .hero-sub { margin-top: 1rem; font-size: clamp(1rem, 2.5vw, 1.15rem); color: var(--ink-soft); max-width: 480px; line-height: 1.6; animation: fadeUp 0.5s 0.2s ease both; }
-    .happening-now-bar { display: none; margin: 0 clamp(1rem, 4vw, 2.5rem) 1.5rem; background: var(--green); color: white; border-radius: 12px; padding: 0.85rem 1.2rem; font-weight: 500; font-size: 0.95rem; align-items: center; gap: 0.6rem; animation: fadeUp 0.4s ease both; }
-    .happening-now-bar.visible { display: flex; }
-    .pulse-dot { width: 10px; height: 10px; background: white; border-radius: 50%; flex-shrink: 0; animation: pulse 1.5s infinite; }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.4; }
+
+    /* NAV */
+    nav { position:sticky; top:0; z-index:100; background:rgba(255,251,245,0.92); backdrop-filter:blur(12px); border-bottom:1.5px solid var(--border); padding:0 clamp(1rem,4vw,2.5rem); height:60px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:var(--ink); letter-spacing:-0.02em; }
+    .logo span { color:var(--amber); }
+    .nav-pill { background:var(--ink); color:var(--cream); font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:0.04em; padding:0.45rem 1.1rem; border-radius:100px; border:none; cursor:pointer; transition:background 0.2s; text-transform:uppercase; }
+    .nav-pill:hover { background:var(--amber-dark); }
+
+    /* HERO */
+    .hero { position:relative; padding:clamp(3rem,8vw,6rem) clamp(1rem,4vw,2.5rem) clamp(2rem,5vw,3.5rem); overflow:hidden; }
+    .hero-bg-circle { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,var(--amber-light) 0%,transparent 70%); top:-200px; right:-150px; opacity:0.5; pointer-events:none; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:0.5rem; background:var(--foam); border:1.5px solid var(--amber); border-radius:100px; padding:0.3rem 0.9rem; font-size:0.78rem; font-weight:500; color:var(--amber-dark); margin-bottom:1.2rem; animation:fadeUp 0.5s ease both; }
+    .hero h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2.6rem,7vw,5rem); line-height:1.0; letter-spacing:-0.03em; color:var(--ink); max-width:700px; animation:fadeUp 0.5s 0.1s ease both; }
+    .hero h1 em { font-style:italic; color:var(--amber); font-weight:700; }
+    .hero-sub { margin-top:1rem; font-size:clamp(1rem,2.5vw,1.15rem); color:var(--ink-soft); max-width:480px; line-height:1.6; animation:fadeUp 0.5s 0.2s ease both; }
+
+    /* HAPPENING NOW */
+    .happening-now-bar { display:none; margin:0 clamp(1rem,4vw,2.5rem) 1.5rem; background:var(--green); color:white; border-radius:12px; padding:0.85rem 1.2rem; font-weight:500; font-size:0.95rem; align-items:center; gap:0.6rem; }
+    .happening-now-bar.visible { display:flex; }
+    .pulse-dot { width:10px; height:10px; background:white; border-radius:50%; flex-shrink:0; animation:pulse 1.5s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
-    .filters-wrapper { position: sticky; top: 60px; z-index: 90; background: rgba(255,251,245,0.95); backdrop-filter: blur(8px); border-bottom: 1.5px solid var(--border); padding: 0.85rem clamp(1rem, 4vw, 2.5rem); }
-    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
-    .filter-label { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
-    select, .filter-btn { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; border: 1.5px solid var(--border); border-radius: 100px; padding: 0.45rem 1rem; background: white; color: var(--ink); cursor: pointer; transition: all 0.15s; appearance: none; -webkit-appearance: none; }
-    select { padding-right: 2rem; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%231C1917' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.7rem center; }
-    select:hover, .filter-btn:hover { border-color: var(--amber); background-color: var(--foam); }
-    .filter-btn.now-active { background: var(--green); color: white; border-color: var(--green); }
-    .main { padding: 2rem clamp(1rem, 4vw, 2.5rem) 4rem; }
-    .results-count { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1.2rem; }
-    .card { background: white; border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; animation: fadeUp 0.4s ease both; position: relative; }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(28,25,23,0.10); }
-    .card-badge { position: absolute; top: 12px; right: 12px; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.3rem 0.65rem; border-radius: 100px; z-index: 2; }
-    .badge-featured { background: var(--amber); color: var(--ink); }
-    .badge-now { background: var(--green); color: white; }
-    .card-header { padding: 1.2rem 1.2rem 0; display: flex; align-items: flex-start; gap: 0.9rem; }
-    .venue-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--foam); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; border: 1.5px solid var(--amber-light); }
-    .venue-info { flex: 1; min-width: 0; }
-    .venue-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .venue-neighbourhood { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.15rem; }
-    .venue-notes { margin: 0.6rem 1.2rem 0; background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 8px; padding: 0.35rem 0.65rem; font-size: 0.78rem; color: #92400E; font-style: italic; }
-    .card-body { padding: 1rem 1.2rem; flex: 1; display: flex; flex-direction: column; gap: 0.65rem; }
-    .time-window { border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem; position: relative; }
-    .time-window.active-window { border-color: var(--green); background: #F0FDF4; }
-    .window-live-tag { display: none; position: absolute; top: -10px; right: 10px; background: var(--green); color: white; font-size: 0.6rem; font-weight: 700; font-family: 'Syne', sans-serif; padding: 0.15rem 0.5rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .time-window.active-window .window-live-tag { display: block; }
-    .happy-hour-time { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--foam); border: 1px solid var(--amber-light); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.84rem; font-weight: 500; color: var(--amber-dark); margin-bottom: 0.6rem; }
-    .time-window.active-window .happy-hour-time { background: #DCFCE7; border-color: #86EFAC; color: #15803D; }
-    .deals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
-    .deals-list li { font-size: 0.85rem; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
-    .deals-list li::before { content: '→'; color: var(--amber); flex-shrink: 0; font-weight: 700; }
-    .card-footer { padding: 0.85rem 1.2rem; border-top: 1.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-    .days-row { display: flex; gap: 0.25rem; }
-    .day-chip { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; font-family: 'Syne', sans-serif; background: var(--cream-dark); color: var(--ink-soft); }
-    .day-chip.active { background: var(--amber); color: var(--ink); }
-    .directions-btn { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--ink); border: 1.5px solid var(--border); background: white; border-radius: 8px; padding: 0.35rem 0.75rem; cursor: pointer; transition: all 0.15s; text-decoration: none; white-space: nowrap; }
-    .directions-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
-    .empty-state { grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; color: var(--ink-soft); }
-    .empty-state .emoji { font-size: 3rem; margin-bottom: 1rem; }
-    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--ink); }
-    footer { border-top: 1.5px solid var(--border); padding: 2rem clamp(1rem, 4vw, 2.5rem); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
-    .footer-logo span { color: var(--amber); }
-    footer p { font-size: 0.82rem; color: var(--ink-soft); }
-    .suggest-link { font-size: 0.82rem; color: var(--amber-dark); font-weight: 500; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; }
-    .modal-overlay { position: fixed; inset: 0; background: rgba(28,25,23,0.6); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-overlay.open { display: flex; }
-    .modal { background: var(--cream); border-radius: 20px; padding: 2rem; width: 100%; max-width: 460px; animation: fadeUp 0.25s ease both; }
-    .modal h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 0.4rem; }
-    .modal p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.82rem; font-weight: 500; margin-bottom: 0.35rem; color: var(--ink-soft); }
-    .form-group input, .form-group textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 0.65rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink); background: white; transition: border-color 0.15s; }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--amber); }
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
-    .btn-cancel { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; background: none; border: 1.5px solid var(--border); border-radius: 10px; padding: 0.6rem 1.2rem; cursor: pointer; color: var(--ink-soft); }
-    .btn-submit { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; background: var(--amber); border: none; border-radius: 10px; padding: 0.6rem 1.4rem; cursor: pointer; color: var(--ink); letter-spacing: 0.02em; transition: background 0.15s; }
-    .btn-submit:hover { background: var(--amber-dark); color: white; }
+
+    /* FILTERS */
+    .filters-wrapper { position:sticky; top:60px; z-index:90; background:rgba(255,251,245,0.95); backdrop-filter:blur(8px); border-bottom:1.5px solid var(--border); padding:0.85rem clamp(1rem,4vw,2.5rem); }
+    .filters { display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; }
+    .filter-label { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); }
+    select, .filter-btn { font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:500; border:1.5px solid var(--border); border-radius:100px; padding:0.45rem 1rem; background:white; color:var(--ink); cursor:pointer; transition:all 0.15s; appearance:none; -webkit-appearance:none; }
+    select { padding-right:2rem; background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%231C1917' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0.7rem center; }
+    select:hover, .filter-btn:hover { border-color:var(--amber); background-color:var(--foam); }
+    .filter-btn.now-active { background:var(--green); color:white; border-color:var(--green); }
+
+    /* GRID */
+    .main { padding:2rem clamp(1rem,4vw,2.5rem) 4rem; }
+    .results-count { font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); margin-bottom:1.5rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr)); gap:1rem; }
+
+    /* CARD — minimal, tap to expand */
+    .card { background:white; border:1.5px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s; animation:fadeUp 0.4s ease both; position:relative; cursor:pointer; }
+    .card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(28,25,23,0.09); border-color:rgba(245,158,11,0.3); }
+    .card:active { transform:scale(0.99); }
+
+    .card-badge { position:absolute; top:10px; right:10px; font-family:'Syne',sans-serif; font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:0.25rem 0.6rem; border-radius:100px; z-index:2; }
+    .badge-featured { background:var(--amber); color:var(--ink); }
+    .badge-now { background:var(--green); color:white; }
+
+    .card-inner { padding:1.1rem; display:flex; align-items:flex-start; gap:0.85rem; }
+    .venue-icon { width:44px; height:44px; border-radius:11px; background:var(--foam); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; border:1.5px solid var(--amber-light); }
+    .venue-info { flex:1; min-width:0; }
+    .venue-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; color:var(--ink); letter-spacing:-0.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .venue-meta { font-size:0.78rem; color:var(--ink-soft); margin-top:0.1rem; display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap; }
+    .venue-type-chip { background:var(--cream-dark); border-radius:100px; padding:0.1rem 0.5rem; font-size:0.7rem; font-weight:500; }
+
+    .card-notes { padding:0 1.1rem 0; }
+    .notes-pill { display:inline-flex; align-items:center; gap:0.3rem; background:#FFF7ED; border:1px solid #FED7AA; border-radius:6px; padding:0.25rem 0.6rem; font-size:0.73rem; color:#92400E; font-style:italic; margin-bottom:0.75rem; }
+
+    .card-times { padding:0 1.1rem 1.1rem; display:flex; flex-direction:column; gap:0.4rem; }
+    .time-pill { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; font-weight:500; color:var(--amber-dark); background:var(--foam); border:1px solid var(--amber-light); border-radius:7px; padding:0.28rem 0.65rem; width:fit-content; }
+    .time-pill.live { background:#DCFCE7; border-color:#86EFAC; color:#15803D; }
+    .time-pill .live-dot { width:6px; height:6px; border-radius:50%; background:#16A34A; animation:pulse 1.5s infinite; }
+
+    .card-tap-hint { border-top:1.5px solid var(--border); padding:0.55rem 1.1rem; display:flex; align-items:center; justify-content:space-between; }
+    .tap-hint-text { font-size:0.73rem; color:var(--ink-soft); }
+    .tap-arrow { font-size:0.8rem; color:var(--amber); transition:transform 0.2s; }
+    .card:hover .tap-arrow { transform:translateX(3px); }
+
+    /* EMPTY */
+    .empty-state { grid-column:1/-1; text-align:center; padding:4rem 2rem; color:var(--ink-soft); }
+    .empty-state .emoji { font-size:3rem; margin-bottom:1rem; }
+    .empty-state h3 { font-family:'Syne',sans-serif; font-size:1.2rem; margin-bottom:0.5rem; color:var(--ink); }
+    .suggest-link { font-size:0.82rem; color:var(--amber-dark); font-weight:500; text-decoration:underline; cursor:pointer; background:none; border:none; font-family:'DM Sans',sans-serif; }
+
+    /* FOOTER */
+    footer { border-top:1.5px solid var(--border); padding:2rem clamp(1rem,4vw,2.5rem); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    .footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; }
+    .footer-logo span { color:var(--amber); }
+    footer p { font-size:0.82rem; color:var(--ink-soft); }
+
+    /* ── DRAWER ── */
+    .drawer-overlay { position:fixed; inset:0; background:rgba(28,25,23,0); z-index:300; pointer-events:none; transition:background 0.3s; }
+    .drawer-overlay.open { background:rgba(28,25,23,0.5); pointer-events:all; }
+
+    .drawer { position:fixed; bottom:0; left:0; right:0; background:var(--cream); border-radius:24px 24px 0 0; z-index:301; transform:translateY(100%); transition:transform 0.38s cubic-bezier(0.32,0.72,0,1); max-height:92vh; display:flex; flex-direction:column; }
+    .drawer.open { transform:translateY(0); }
+
+    /* On desktop, make it a centered panel */
+    @media (min-width: 680px) {
+      .drawer { left:50%; right:auto; bottom:auto; top:50%; width:560px; transform:translate(-50%, calc(-50% + 40px)); border-radius:24px; max-height:88vh; opacity:0; transition:transform 0.35s cubic-bezier(0.32,0.72,0,1), opacity 0.3s; }
+      .drawer.open { transform:translate(-50%,-50%); opacity:1; }
+      .drawer-handle { display:none; }
+    }
+
+    .drawer-handle { width:36px; height:4px; background:var(--border); border-radius:100px; margin:12px auto 0; flex-shrink:0; }
+    .drawer-scroll { overflow-y:auto; flex:1; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+
+    .drawer-header { padding:1.25rem 1.5rem 0; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; position:sticky; top:0; background:var(--cream); z-index:2; padding-bottom:1rem; border-bottom:1.5px solid var(--border); }
+    .drawer-venue-main { display:flex; align-items:center; gap:0.9rem; flex:1; min-width:0; }
+    .drawer-icon { width:52px; height:52px; border-radius:14px; background:var(--foam); display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; border:1.5px solid var(--amber-light); }
+    .drawer-title-block { flex:1; min-width:0; }
+    .drawer-name { font-family:'Syne',sans-serif; font-weight:800; font-size:1.25rem; color:var(--ink); letter-spacing:-0.02em; }
+    .drawer-neighbourhood { font-size:0.85rem; color:var(--ink-soft); margin-top:0.15rem; }
+    .drawer-close { width:34px; height:34px; border-radius:50%; background:var(--cream-dark); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; color:var(--ink-soft); transition:background 0.15s; }
+    .drawer-close:hover { background:var(--border); }
+
+    .drawer-body { padding:1.25rem 1.5rem 2rem; display:flex; flex-direction:column; gap:1.25rem; }
+
+    /* Drawer sections */
+    .d-section-label { font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:0.6rem; }
+
+    .d-notes { display:flex; align-items:flex-start; gap:0.5rem; background:#FFF7ED; border:1px solid #FED7AA; border-radius:10px; padding:0.75rem; font-size:0.85rem; color:#92400E; font-style:italic; line-height:1.5; }
+
+    .d-status-row { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .d-status-chip { display:inline-flex; align-items:center; gap:0.35rem; border-radius:100px; padding:0.35rem 0.9rem; font-size:0.82rem; font-weight:500; }
+    .chip-live { background:#DCFCE7; color:#15803D; border:1px solid #86EFAC; }
+    .chip-closed { background:var(--cream-dark); color:var(--ink-soft); border:1px solid var(--border); }
+    .chip-featured { background:var(--foam); color:var(--amber-dark); border:1px solid var(--amber-light); }
+
+    .d-windows { display:flex; flex-direction:column; gap:0.75rem; }
+    .d-window { border:1.5px solid var(--border); border-radius:12px; overflow:hidden; }
+    .d-window.active { border-color:var(--green); }
+    .d-window-header { padding:0.65rem 1rem; display:flex; align-items:center; justify-content:space-between; background:var(--cream-dark); }
+    .d-window.active .d-window-header { background:#F0FDF4; }
+    .d-window-time { font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:var(--ink); }
+    .d-window-live-tag { font-size:0.65rem; font-weight:700; font-family:'Syne',sans-serif; text-transform:uppercase; letter-spacing:0.06em; background:var(--green); color:white; padding:0.15rem 0.55rem; border-radius:100px; }
+    .d-window-deals { padding:0.75rem 1rem; display:flex; flex-direction:column; gap:0.4rem; }
+    .d-deal { display:flex; align-items:flex-start; gap:0.5rem; font-size:0.88rem; color:var(--ink-soft); line-height:1.45; }
+    .d-deal::before { content:'→'; color:var(--amber); font-weight:700; flex-shrink:0; margin-top:0.05rem; }
+
+    .d-days { display:flex; gap:0.3rem; flex-wrap:wrap; }
+    .d-day { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; font-family:'Syne',sans-serif; background:var(--cream-dark); color:var(--ink-soft); }
+    .d-day.on { background:var(--amber); color:var(--ink); }
+
+    .d-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
+    .d-info-item { background:white; border:1.5px solid var(--border); border-radius:10px; padding:0.75rem; display:flex; flex-direction:column; gap:0.2rem; }
+    .d-info-item a { color:var(--ink); text-decoration:none; }
+    .d-info-label { font-size:0.68rem; font-weight:700; font-family:'Syne',sans-serif; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); }
+    .d-info-value { font-size:0.88rem; color:var(--ink); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .d-info-value.link { color:var(--amber-dark); text-decoration:underline; cursor:pointer; }
+
+    .d-maps-btn { display:flex; align-items:center; justify-content:center; gap:0.6rem; background:var(--ink); color:white; border:none; border-radius:12px; padding:0.9rem 1.5rem; font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; letter-spacing:0.02em; cursor:pointer; text-decoration:none; transition:background 0.2s; width:100%; }
+    .d-maps-btn:hover { background:var(--amber-dark); }
+
+    /* SUGGEST MODAL */
+    .modal-overlay { position:fixed; inset:0; background:rgba(28,25,23,0.6); backdrop-filter:blur(4px); z-index:400; display:none; align-items:center; justify-content:center; padding:1rem; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--cream); border-radius:20px; padding:2rem; width:100%; max-width:460px; animation:fadeUp 0.25s ease both; }
+    .modal h2 { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; margin-bottom:0.4rem; }
+    .modal p { font-size:0.9rem; color:var(--ink-soft); margin-bottom:1.5rem; }
+    .form-group { margin-bottom:1rem; }
+    .form-group label { display:block; font-size:0.82rem; font-weight:500; margin-bottom:0.35rem; color:var(--ink-soft); }
+    .form-group input, .form-group textarea { width:100%; border:1.5px solid var(--border); border-radius:10px; padding:0.65rem 0.9rem; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--ink); background:white; transition:border-color 0.15s; }
+    .form-group input:focus, .form-group textarea:focus { outline:none; border-color:var(--amber); }
+    .form-group textarea { resize:vertical; min-height:80px; }
+    .modal-actions { display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.5rem; }
+    .btn-cancel { font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:500; background:none; border:1.5px solid var(--border); border-radius:10px; padding:0.6rem 1.2rem; cursor:pointer; color:var(--ink-soft); }
+    .btn-submit { font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:700; background:var(--amber); border:none; border-radius:10px; padding:0.6rem 1.4rem; cursor:pointer; color:var(--ink); transition:background 0.15s; }
+    .btn-submit:hover { background:var(--amber-dark); color:white; }
+
     @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-    @media (max-width: 600px) { .filters{gap:0.4rem} select,.filter-btn{font-size:0.82rem;padding:0.4rem 0.85rem} .filter-label{display:none} }
+    @media (max-width:600px) { .filters{gap:0.4rem} select,.filter-btn{font-size:0.82rem;padding:0.4rem 0.85rem} .filter-label{display:none} .d-info-grid{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
 
 <nav>
   <div class="logo">Pour<span>.</span>Vancouver</div>
-  <button class="nav-pill" onclick="openModal()">Suggest a Venue</button>
+  <button class="nav-pill" onclick="openSuggest()">Suggest a Venue</button>
 </nav>
 
 <section class="hero">
@@ -120,21 +203,16 @@
     <button class="filter-btn now-active" id="nowBtn" onclick="toggleNow()">⚡ Happening Now</button>
     <select id="dayFilter" onchange="applyFilters()">
       <option value="all">All Days</option>
-      <option value="mon">Monday</option>
-      <option value="tue">Tuesday</option>
-      <option value="wed">Wednesday</option>
-      <option value="thu">Thursday</option>
-      <option value="fri">Friday</option>
-      <option value="sat">Saturday</option>
+      <option value="mon">Monday</option><option value="tue">Tuesday</option>
+      <option value="wed">Wednesday</option><option value="thu">Thursday</option>
+      <option value="fri">Friday</option><option value="sat">Saturday</option>
       <option value="sun">Sunday</option>
     </select>
     <select id="hoodFilter" onchange="applyFilters()"></select>
     <select id="typeFilter" onchange="applyFilters()">
       <option value="all">All Types</option>
-      <option value="bar">Bar</option>
-      <option value="restaurant">Restaurant</option>
-      <option value="brewery">Brewery</option>
-      <option value="lounge">Lounge</option>
+      <option value="bar">Bar</option><option value="restaurant">Restaurant</option>
+      <option value="brewery">Brewery</option><option value="lounge">Lounge</option>
     </select>
   </div>
 </div>
@@ -147,10 +225,30 @@
 <footer>
   <div class="footer-logo">Pour<span>.</span>Vancouver</div>
   <p>© 2025 Pour Vancouver · Updated weekly</p>
-  <button class="suggest-link" onclick="openModal()">Know a spot? Suggest it →</button>
+  <button class="suggest-link" onclick="openSuggest()">Know a spot? Suggest it →</button>
 </footer>
 
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header">
+    <div class="drawer-venue-main">
+      <div class="drawer-icon" id="dIcon"></div>
+      <div class="drawer-title-block">
+        <div class="drawer-name" id="dName"></div>
+        <div class="drawer-neighbourhood" id="dHood"></div>
+      </div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-scroll">
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+</div>
+
+<!-- SUGGEST MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeSuggestOutside(event)">
   <div class="modal">
     <h2>Suggest a Venue 🍻</h2>
     <p>Know a great happy hour we're missing? Drop the details and we'll check it out.</p>
@@ -158,7 +256,7 @@
     <div class="form-group"><label>Neighbourhood</label><input type="text" placeholder="e.g. Gastown" id="suggestHood" /></div>
     <div class="form-group"><label>Happy Hour Details</label><textarea placeholder="e.g. Mon–Fri 3–6pm, $5 beers, half-price apps" id="suggestDetails"></textarea></div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-cancel" onclick="closeSuggest()">Cancel</button>
       <button class="btn-submit" onclick="submitSuggestion()">Send It →</button>
     </div>
   </div>
@@ -174,69 +272,161 @@
     const sel = document.getElementById('hoodFilter');
     sel.innerHTML = '<option value="all">All Neighbourhoods</option>';
     neighbourhoods.forEach(n => {
-      const opt = document.createElement('option');
-      opt.value = n.toLowerCase();
-      opt.textContent = n;
-      sel.appendChild(opt);
+      const o = document.createElement('option');
+      o.value = n.toLowerCase(); o.textContent = n; sel.appendChild(o);
     });
   }
 
   function getNow() {
     const d = new Date();
-    return { day: DAY_KEYS[d.getDay()], mins: d.getHours() * 60 + d.getMinutes() };
+    return { day: DAY_KEYS[d.getDay()], mins: d.getHours()*60+d.getMinutes() };
   }
 
-  function toMins(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
+  function toMins(t) {
+    if (!t) return 0;
+    const [h,m] = t.split(':').map(Number);
+    return h*60+m;
+  }
 
-  function activeWindows(venue) {
-    const {day, mins} = getNow();
-    if (!venue.days.includes(day)) return [];
-    return venue.hours.filter(w => mins >= toMins(w.startTime) && mins <= toMins(w.endTime));
+  function activeWindows(v) {
+    const {day,mins} = getNow();
+    if (!v.days.includes(day)) return [];
+    return v.hours.filter(w => mins >= toMins(w.startTime) && mins <= toMins(w.endTime));
   }
 
   function isHappeningNow(v) { return activeWindows(v).length > 0; }
 
   function fmt(t) {
+    if (!t) return '';
     const [h,m] = t.split(':').map(Number);
     const ap = h >= 12 ? 'pm' : 'am';
-    const hr = h > 12 ? h-12 : (h===0?12:h);
+    const hr = h > 12 ? h-12 : (h===0 ? 12 : h);
     return m===0 ? `${hr}${ap}` : `${hr}:${String(m).padStart(2,'0')}${ap}`;
   }
 
-  function renderCard(venue, idx) {
-    const now    = isHappeningNow(venue);
-    const active = activeWindows(venue);
-    const days   = DAY_KEYS.map((d,i) => `<span class="day-chip ${venue.days.includes(d)?'active':''}">${DAY_LABELS[i]}</span>`).join('');
-    const badge  = venue.featured ? `<span class="card-badge badge-featured">⭐ Featured</span>` : now ? `<span class="card-badge badge-now">● Live Now</span>` : '';
-    const notes  = venue.notes ? `<div class="venue-notes">ℹ️ ${venue.notes}</div>` : '';
-    const windows = venue.hours.map(w => {
+  // ── CARD (minimal) ──────────────────────────────────────────
+  function renderCard(v, idx) {
+    const now    = isHappeningNow(v);
+    const active = activeWindows(v);
+
+    const badge = v.featured
+      ? `<span class="card-badge badge-featured">⭐ Featured</span>`
+      : now ? `<span class="card-badge badge-now">● Live Now</span>` : '';
+
+    const notesHTML = v.notes
+      ? `<div class="card-notes"><div class="notes-pill">ℹ️ ${v.notes}</div></div>` : '';
+
+    const timesHTML = v.hours.map(w => {
       const isAct = active.some(a => a.startTime === w.startTime);
-      const deals = w.deals.map(d => `<li>${d}</li>`).join('');
-      return `<div class="time-window ${isAct?'active-window':''}">
-        <span class="window-live-tag">● Now</span>
-        <div class="happy-hour-time">🕐 ${fmt(w.startTime)} – ${fmt(w.endTime)}</div>
-        <ul class="deals-list">${deals}</ul>
+      return `<div class="time-pill ${isAct ? 'live' : ''}">
+        ${isAct ? '<span class="live-dot"></span>' : '🕐'}
+        ${fmt(w.startTime)} – ${fmt(w.endTime)}
       </div>`;
     }).join('');
-    const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.name+' '+venue.neighbourhood+' Vancouver')}`;
-    return `<article class="card" style="animation-delay:${idx*0.05}s">
-      ${badge}
-      <div class="card-header">
-        <div class="venue-icon">${venue.emoji}</div>
-        <div class="venue-info">
-          <div class="venue-name">${venue.name}</div>
-          <div class="venue-neighbourhood">📍 ${venue.neighbourhood}</div>
+
+    return `
+      <article class="card" style="animation-delay:${idx*0.04}s" onclick="openDrawer(${idx})">
+        ${badge}
+        <div class="card-inner">
+          <div class="venue-icon">${v.emoji}</div>
+          <div class="venue-info">
+            <div class="venue-name">${v.name}</div>
+            <div class="venue-meta">
+              <span>📍 ${v.neighbourhood}</span>
+              <span class="venue-type-chip">${v.type}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      ${notes}
-      <div class="card-body">${windows}</div>
-      <div class="card-footer">
-        <div class="days-row">${days}</div>
-        <a class="directions-btn" href="${maps}" target="_blank" rel="noopener">Directions →</a>
-      </div>
-    </article>`;
+        ${notesHTML}
+        <div class="card-times">${timesHTML}</div>
+        <div class="card-tap-hint">
+          <span class="tap-hint-text">Tap for full menu & details</span>
+          <span class="tap-arrow">→</span>
+        </div>
+      </article>`;
   }
 
+  // ── DRAWER ──────────────────────────────────────────────────
+  let currentFiltered = [];
+
+  function openDrawer(idx) {
+    const v = currentFiltered[idx];
+    if (!v) return;
+    const now    = isHappeningNow(v);
+    const active = activeWindows(v);
+
+    document.getElementById('dIcon').textContent = v.emoji;
+    document.getElementById('dName').textContent = v.name;
+    document.getElementById('dHood').textContent = `📍 ${v.neighbourhood} · ${v.type}`;
+
+    // Status chips
+    let statusChips = '';
+    if (now) statusChips += `<span class="d-status-chip chip-live"><span style="width:7px;height:7px;border-radius:50%;background:#16A34A;animation:pulse 1.5s infinite;display:inline-block"></span> Happening Now</span>`;
+    else statusChips += `<span class="d-status-chip chip-closed">⏰ Not currently active</span>`;
+    if (v.featured) statusChips += `<span class="d-status-chip chip-featured">⭐ Featured</span>`;
+
+    // Notes
+    const notesHTML = v.notes
+      ? `<div><div class="d-section-label">Note</div><div class="d-notes">ℹ️ ${v.notes}</div></div>` : '';
+
+    // Time windows with full deals
+    const windowsHTML = v.hours.map(w => {
+      const isAct = active.some(a => a.startTime === w.startTime);
+      const deals = w.deals.map(d => `<div class="d-deal">${d}</div>`).join('');
+      return `<div class="d-window ${isAct ? 'active' : ''}">
+        <div class="d-window-header">
+          <span class="d-window-time">🕐 ${fmt(w.startTime)} – ${fmt(w.endTime)}</span>
+          ${isAct ? '<span class="d-window-live-tag">● Now</span>' : ''}
+        </div>
+        <div class="d-window-deals">${deals}</div>
+      </div>`;
+    }).join('');
+
+    // Days
+    const daysHTML = DAY_KEYS.map((d,i) =>
+      `<div class="d-day ${v.days.includes(d) ? 'on' : ''}">${DAY_LABELS[i]}</div>`
+    ).join('');
+
+    // Contact info grid
+    let infoItems = '';
+    if (v.phone) infoItems += `<div class="d-info-item"><span class="d-info-label">Phone</span><a href="tel:${v.phone}" class="d-info-value">${v.phone}</a></div>`;
+    if (v.website) infoItems += `<div class="d-info-item"><span class="d-info-label">Website</span><a href="${v.website}" target="_blank" rel="noopener" class="d-info-value link">Visit site →</a></div>`;
+    const infoGrid = infoItems ? `<div><div class="d-section-label">Contact</div><div class="d-info-grid">${infoItems}</div></div>` : '';
+
+    // Maps button
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.name+' '+v.neighbourhood+' Vancouver BC')}`;
+
+    document.getElementById('drawerBody').innerHTML = `
+      <div class="d-status-row">${statusChips}</div>
+      ${notesHTML}
+      <div>
+        <div class="d-section-label">Happy Hour Schedule</div>
+        <div class="d-windows">${windowsHTML}</div>
+      </div>
+      <div>
+        <div class="d-section-label">Days Available</div>
+        <div class="d-days">${daysHTML}</div>
+      </div>
+      ${infoGrid}
+      <a class="d-maps-btn" href="${mapsUrl}" target="_blank" rel="noopener">
+        🗺️ Open in Google Maps
+      </a>`;
+
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.getElementById('drawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('drawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close drawer on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+  // ── FILTERS ─────────────────────────────────────────────────
   function updateBar() {
     const bar = document.getElementById('happeningBar');
     const n = venues.filter(isHappeningNow).length;
@@ -250,17 +440,23 @@
     const day  = document.getElementById('dayFilter').value;
     const hood = document.getElementById('hoodFilter').value.toLowerCase();
     const type = document.getElementById('typeFilter').value.toLowerCase();
-    let f = venues.filter(v => {
-      return (day==='all'||v.days.includes(day)) &&
-             (hood==='all'||v.neighbourhood.toLowerCase()===hood) &&
-             (type==='all'||v.type.toLowerCase()===type) &&
-             (!showingNow||isHappeningNow(v));
-    });
-    f.sort((a,b) => (b.featured?1:0)-(a.featured?1:0));
+
+    currentFiltered = venues.filter(v =>
+      (day==='all'  || v.days.includes(day)) &&
+      (hood==='all' || v.neighbourhood.toLowerCase()===hood) &&
+      (type==='all' || v.type.toLowerCase()===type) &&
+      (!showingNow  || isHappeningNow(v))
+    );
+    currentFiltered.sort((a,b) => (b.featured?1:0)-(a.featured?1:0));
+
     const grid = document.getElementById('venueGrid');
-    document.getElementById('resultsCount').textContent = f.length ? `${f.length} venue${f.length!==1?'s':''}` : '0 venues';
-    grid.innerHTML = f.length ? f.map((v,i)=>renderCard(v,i)).join('') :
-      `<div class="empty-state"><div class="emoji">🍺</div><h3>No happy hours found</h3><p>Try adjusting your filters, or <button class="suggest-link" onclick="openModal()">suggest a venue</button>.</p></div>`;
+    document.getElementById('resultsCount').textContent =
+      currentFiltered.length ? `${currentFiltered.length} venue${currentFiltered.length!==1?'s':''}` : '0 venues';
+
+    grid.innerHTML = currentFiltered.length
+      ? currentFiltered.map((v,i) => renderCard(v,i)).join('')
+      : `<div class="empty-state"><div class="emoji">🍺</div><h3>No happy hours found</h3>
+         <p>Try adjusting your filters, or <button class="suggest-link" onclick="openSuggest()">suggest a venue</button>.</p></div>`;
   }
 
   function toggleNow() {
@@ -270,16 +466,18 @@
     applyFilters();
   }
 
-  function openModal()  { document.getElementById('modalOverlay').classList.add('open');    document.body.style.overflow='hidden'; }
-  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
-  function closeModalOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+  // ── SUGGEST MODAL ────────────────────────────────────────────
+  function openSuggest()  { document.getElementById('modalOverlay').classList.add('open');    document.body.style.overflow='hidden'; }
+  function closeSuggest() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+  function closeSuggestOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeSuggest(); }
   function submitSuggestion() {
     const name = document.getElementById('suggestName').value.trim();
     if(!name){alert('Please enter a venue name.');return;}
     alert(`Thanks! We'll look into ${name} and add it if it checks out. 🍺`);
-    closeModal();
+    closeSuggest();
   }
 
+  // ── INIT ─────────────────────────────────────────────────────
   buildNeighbourhoodFilter();
   updateBar();
   applyFilters();

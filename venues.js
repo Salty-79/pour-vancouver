@@ -1,24 +1,15 @@
 // ============================================================
 //  POUR VANCOUVER — VENUE DATA
 //
-//  HOW TO ADD A VENUE:
-//  Copy one entry block, paste it before the final ];
-//  Fill in the details and save.
+//  NEW FIELDS AVAILABLE:
+//  phone:   "+1 (604) 555-0123"   — optional, shows in drawer
+//  website: "https://example.com" — optional, shows in drawer
 //
 //  DAYS:  'mon' 'tue' 'wed' 'thu' 'fri' 'sat' 'sun'
-//  TIMES: 24-hour format — 3pm = "15:00", 9pm = "21:00", midnight = "24:00"
+//  TIMES: 24-hour — 3pm = "15:00", 9pm = "21:00", midnight = "24:00"
 //  TYPE:  "bar" | "restaurant" | "brewery" | "lounge"
-//  FEATURED: true = paid featured listing (shows first, gold badge)
-//
-//  MULTIPLE HAPPY HOUR WINDOWS:
-//  Use the "hours" array — each window has startTime, endTime, and its own deals.
-//
-//  NOTES: Optional — use for things like "Lounge only" or "Bar seating only"
 // ============================================================
 
-// ── NEIGHBOURHOODS ──────────────────────────────────────────
-// To add a new neighbourhood: just add a line here.
-// It will automatically appear in the filter dropdown on the site.
 const neighbourhoods = [
   "Gastown",
   "Yaletown",
@@ -37,7 +28,6 @@ const neighbourhoods = [
   "Coal Harbour",
 ];
 
-// ── VENUES ──────────────────────────────────────────────────
 const venues = [
 
   {
@@ -48,6 +38,8 @@ const venues = [
     days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
     notes: "Lounge only — not available in main dining room",
     featured: false,
+    phone: "",
+    website: "https://www.chopsteakhouse.com",
     hours: [
       {
         startTime: "15:00",
@@ -68,8 +60,7 @@ const venues = [
     ]
   },
 
-  // ADD MORE VENUES ABOVE THIS LINE
-  // Copy the block below, fill it in, paste above:
+  // ── ADD NEW VENUES ABOVE THIS LINE ───────────────────────
   //
   // {
   //   name: "Venue Name",
@@ -77,8 +68,10 @@ const venues = [
   //   type: "bar",
   //   emoji: "🍺",
   //   days: ["mon", "tue", "wed", "thu", "fri"],
-  //   notes: "",
+  //   notes: "",                        // optional
   //   featured: false,
+  //   phone: "",                        // optional, e.g. "+1 (604) 555-0123"
+  //   website: "",                      // optional, e.g. "https://example.com"
   //   hours: [
   //     {
   //       startTime: "15:00",
