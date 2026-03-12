@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pour Vancouver — Venue Entry Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber: #F59E0B; --amber-light: #FDE68A; --amber-dark: #B45309;
+      --ink: #1C1917; --ink-soft: #44403C; --cream: #FFFBF5;
+      --foam: #FEF3C7; --green: #16A34A; --border: rgba(28,25,23,0.12);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 680px; margin: 0 auto; }
+    h1 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.25rem; }
+    h1 span { color: var(--amber); }
+    .subtitle { color: var(--ink-soft); margin-bottom: 2rem; font-size: 0.95rem; }
+    .card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .card h2 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.06em; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 0.8rem; font-weight: 500; color: var(--ink-soft); }
+    input, select, textarea {
+      border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 0.6rem 0.75rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; color: var(--ink); background: white;
+      transition: border-color 0.15s; width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--amber); }
+    textarea { resize: vertical; min-height: 70px; }
+    .days-grid { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .day-toggle { cursor: pointer; }
+    .day-toggle input { display: none; }
+    .day-toggle span {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 8px; font-size: 0.75rem;
+      font-weight: 700; font-family: 'Syne', sans-serif;
+      background: #F5EFE6; color: var(--ink-soft); border: 1.5px solid var(--border);
+      transition: all 0.15s; user-select: none;
+    }
+    .day-toggle input:checked + span { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+    .window-block { border: 1.5px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 0.75rem; position: relative; }
+    .window-title { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .remove-window { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; font-size: 1rem; color: #9CA3AF; }
+    .remove-window:hover { color: #EF4444; }
+    .add-window-btn { width: 100%; border: 1.5px dashed var(--border); border-radius: 8px; padding: 0.6rem; background: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink-soft); transition: all 0.15s; margin-top: 0.25rem; }
+    .add-window-btn:hover { border-color: var(--amber); color: var(--amber-dark); background: var(--foam); }
+    .generate-btn { width: 100%; background: var(--ink); color: white; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; border: none; border-radius: 12px; padding: 1rem; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
+    .generate-btn:hover { background: var(--amber-dark); }
+    .output-section { display: none; margin-top: 1.5rem; }
+    .output-section.visible { display: block; }
+    .output-label { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .code-box { background: #1E293B; color: #E2E8F0; border-radius: 12px; padding: 1.25rem; font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.6; overflow-x: auto; white-space: pre; }
+    .copy-btn { margin-top: 0.75rem; background: var(--green); color: white; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; border: none; border-radius: 8px; padding: 0.6rem 1.25rem; cursor: pointer; transition: background 0.2s; }
+    .copy-btn:hover { background: #15803D; }
+    .instructions { background: var(--foam); border: 1.5px solid var(--amber-light); border-radius: 10px; padding: 1rem; margin-top: 1rem; font-size: 0.85rem; line-height: 1.6; color: var(--amber-dark); }
+    .instructions strong { display: block; margin-bottom: 0.25rem; }
+    @media (max-width: 500px) { .row, .row.three { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Pour<span>.</span>Vancouver</h1>
+  <p class="subtitle">Venue Entry Generator — Fill in the form, get the code, paste it into venues.js</p>
+
+  <div class="card">
+    <h2>📍 Venue Info</h2>
+    <div class="row">
+      <div class="field full"><label>Venue Name *</label><input type="text" id="name" placeholder="e.g. Chop Steakhouse & Bar" /></div>
+    </div>
+    <div class="row three">
+      <div class="field">
+        <label>Neighbourhood *</label>
+        <select id="hood">
+          <option value="">Select...</option>
+          <option>Gastown</option><option>Yaletown</option><option>Kitsilano</option>
+          <option>Downtown</option><option>Mount Pleasant</option><option>East Van</option>
+          <option>West End</option><option>Cambie</option><option>Richmond</option>
+          <option>Kerrisdale</option><option>Burnaby</option><option>North Vancouver</option>
+          <option>New Westminster</option><option>South Granville</option><option>Coal Harbour</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Type *</label>
+        <select id="type">
+          <option value="">Select...</option>
+          <option value="bar">Bar</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="brewery">Brewery</option>
+          <option value="lounge">Lounge</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Emoji</label>
+        <input type="text" id="emoji" placeholder="🍺" maxlength="2" style="font-size:1.3rem;text-align:center" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="field full">
+        <label>Notes (optional) — e.g. "Lounge only", "Bar seating only"</label>
+        <input type="text" id="notes" placeholder="e.g. Lounge only — not available in main dining room" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="field full">
+        <label>Featured listing? (paid — shows first with ⭐ badge)</label>
+        <select id="featured"><option value="false">No — regular listing</option><option value="true">Yes — featured listing</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📅 Days Open for Happy Hour</h2>
+    <div class="days-grid">
+      <label class="day-toggle"><input type="checkbox" value="mon" /><span>Mo</span></label>
+      <label class="day-toggle"><input type="checkbox" value="tue" /><span>Tu</span></label>
+      <label class="day-toggle"><input type="checkbox" value="wed" /><span>We</span></label>
+      <label class="day-toggle"><input type="checkbox" value="thu" /><span>Th</span></label>
+      <label class="day-toggle"><input type="checkbox" value="fri" /><span>Fr</span></label>
+      <label class="day-toggle"><input type="checkbox" value="sat" /><span>Sa</span></label>
+      <label class="day-toggle"><input type="checkbox" value="sun" /><span>Su</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🕐 Happy Hour Windows & Deals</h2>
+    <div id="windowsContainer"></div>
+    <button class="add-window-btn" onclick="addWindow()">+ Add another time window</button>
+  </div>
+
+  <button class="generate-btn" onclick="generate()">Generate Code →</button>
+
+  <div class="output-section" id="outputSection">
+    <div class="output-label">✅ Your venue code — ready to paste</div>
+    <div class="code-box" id="codeOutput"></div>
+    <button class="copy-btn" onclick="copyCode()">Copy to Clipboard</button>
+    <div class="instructions">
+      <strong>How to use this:</strong>
+      1. Click "Copy to Clipboard" above<br>
+      2. Open your <strong>venues.js</strong> file in VS Code or a text editor<br>
+      3. Find the line that says <strong>// ADD MORE VENUES ABOVE THIS LINE</strong><br>
+      4. Paste the copied code just above that line<br>
+      5. Save the file and upload to GitHub — done!
+    </div>
+  </div>
+</div>
+
+<script>
+  let windowCount = 0;
+
+  function addWindow() {
+    windowCount++;
+    const id = windowCount;
+    const container = document.getElementById('windowsContainer');
+    const div = document.createElement('div');
+    div.className = 'window-block';
+    div.id = `window-${id}`;
+    div.innerHTML = `
+      <div class="window-title">Time Window ${id}</div>
+      <button class="remove-window" onclick="removeWindow(${id})" title="Remove">✕</button>
+      <div class="row">
+        <div class="field">
+          <label>Start Time</label>
+          <input type="time" id="start-${id}" />
+        </div>
+        <div class="field">
+          <label>End Time (use 00:00 for midnight)</label>
+          <input type="time" id="end-${id}" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Deals (one per line)</label>
+        <textarea id="deals-${id}" placeholder="$5 domestic beers&#10;Half-price appetizers&#10;$6 house wine"></textarea>
+      </div>`;
+    container.appendChild(div);
+    // Renumber titles
+    renumberWindows();
+  }
+
+  function removeWindow(id) {
+    const el = document.getElementById(`window-${id}`);
+    if (el) el.remove();
+    renumberWindows();
+  }
+
+  function renumberWindows() {
+    const blocks = document.querySelectorAll('.window-block');
+    blocks.forEach((b, i) => {
+      const title = b.querySelector('.window-title');
+      if (title) title.textContent = `Time Window ${i + 1}`;
+    });
+  }
+
+  function toCode(time) {
+    // Convert HH:MM to "HH:MM" string, handle midnight
+    if (!time) return '"00:00"';
+    return `"${time}"`;
+  }
+
+  function generate() {
+    const name     = document.getElementById('name').value.trim();
+    const hood     = document.getElementById('hood').value;
+    const type     = document.getElementById('type').value;
+    const emoji    = document.getElementById('emoji').value.trim() || '🍺';
+    const notes    = document.getElementById('notes').value.trim();
+    const featured = document.getElementById('featured').value;
+
+    if (!name || !hood || !type) {
+      alert('Please fill in venue name, neighbourhood, and type.');
+      return;
+    }
+
+    const days = Array.from(document.querySelectorAll('.days-grid input:checked')).map(cb => `"${cb.value}"`);
+    if (days.length === 0) {
+      alert('Please select at least one day.');
+      return;
+    }
+
+    const windowBlocks = document.querySelectorAll('.window-block');
+    if (windowBlocks.length === 0) {
+      alert('Please add at least one time window.');
+      return;
+    }
+
+    const hoursArr = [];
+    let valid = true;
+    windowBlocks.forEach(block => {
+      const idMatch = block.id.match(/window-(\d+)/);
+      if (!idMatch) return;
+      const wid = idMatch[1];
+      const start = document.getElementById(`start-${wid}`).value;
+      const end   = document.getElementById(`end-${wid}`).value;
+      const deals = document.getElementById(`deals-${wid}`).value.trim()
+        .split('\n').map(d => d.trim()).filter(d => d.length > 0);
+
+      if (!start || !end) { alert('Please fill in start and end times for all windows.'); valid = false; return; }
+      if (deals.length === 0) { alert('Please add at least one deal per time window.'); valid = false; return; }
+
+      hoursArr.push({ start, end, deals });
+    });
+
+    if (!valid) return;
+
+    // Build code string
+    const daysLine = `[${days.join(', ')}]`;
+    const hoursCode = hoursArr.map(w => {
+      const dealsCode = w.deals.map(d => `          "${d.replace(/"/g, '\\"')}"`).join(',\n');
+      return `    {\n      startTime: ${toCode(w.start)},\n      endTime: ${toCode(w.end)},\n      deals: [\n${dealsCode}\n      ]\n    }`;
+    }).join(',\n');
+
+    const notesLine = notes ? `\n  notes: "${notes.replace(/"/g, '\\"')}",` : '\n  notes: "",';
+
+    const code = `{\n  name: "${name.replace(/"/g, '\\"')}",\n  neighbourhood: "${hood}",\n  type: "${type}",\n  emoji: "${emoji}",\n  days: ${daysLine},${notesLine}\n  featured: ${featured},\n  hours: [\n${hoursCode}\n  ]\n},`;
+
+    document.getElementById('codeOutput').textContent = code;
+    document.getElementById('outputSection').classList.add('visible');
+    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyCode() {
+    const text = document.getElementById('codeOutput').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✅ Copied!';
+      setTimeout(() => btn.textContent = 'Copy to Clipboard', 2000);
+    });
+  }
+
+  // Start with one window open
+  addWindow();
+</script>
+</body>
+</html>
