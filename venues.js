@@ -38,7 +38,7 @@ const venues = [
     days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
     notes: "Lounge only — not available in main dining room",
     featured: false,
-    phone: "",
+    phone: "604 676 7676",
     website: "https://www.chopsteakhouse.com",
     hours: [
       {
