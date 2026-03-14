@@ -363,6 +363,118 @@ ${rawText.substring(0,6000)}`;
   }
 
   addWindow();
+
+  function runLocalFormat() {
+    const raw = document.getElementById('pasteInput').value.trim();
+    if (!raw) { setStatus('error', 'Please paste some menu text first.'); return; }
+
+    const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const deals = [];
+    let detectedTimes = [];
+    let detectedDays  = [];
+
+    const timeRegex  = /(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–—to]+\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i;
+    const priceRegex = /^(.+?)[\s\-–—|:]+\$?\s*(\d+(?:\.\d{2})?)\s*$/;
+    const dayWords   = { monday:'mon', tuesday:'tue', wednesday:'wed', thursday:'thu', friday:'fri', saturday:'sat', sunday:'sun', mon:'mon', tue:'tue', wed:'wed', thu:'thu', fri:'fri', sat:'sat', sun:'sun' };
+
+    function toTitleCase(str) {
+      const small = new Set(['a','an','the','and','or','but','in','on','at','to','for','of','with','&']);
+      return str.toLowerCase().split(' ').map((w,i) => {
+        const clean = w.replace(/[^a-z]/gi,'');
+        return (i===0 || !small.has(clean)) ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      }).join(' ');
+    }
+
+    function convertTo24(h, m, ampm) {
+      let hour = parseInt(h);
+      const min = m ? m.padStart(2,'0') : '00';
+      if (ampm.toLowerCase() === 'pm' && hour !== 12) hour += 12;
+      if (ampm.toLowerCase() === 'am' && hour === 12) hour = 0;
+      return `${String(hour).padStart(2,'0')}:${min}`;
+    }
+
+    lines.forEach(line => {
+      // Detect time ranges
+      const tm = line.match(timeRegex);
+      if (tm) {
+        detectedTimes.push({
+          start: convertTo24(tm[1], tm[2], tm[3]),
+          end:   convertTo24(tm[4], tm[5], tm[6])
+        });
+      }
+
+      // Detect days
+      const lowerLine = line.toLowerCase();
+      Object.keys(dayWords).forEach(d => {
+        if (lowerLine.includes(d) && !detectedDays.includes(dayWords[d])) {
+          detectedDays.push(dayWords[d]);
+        }
+      });
+      if (lowerLine.includes('daily') || lowerLine.includes('every day') || lowerLine.includes('7 days')) {
+        detectedDays = ['mon','tue','wed','thu','fri','sat','sun'];
+      }
+      if (lowerLine.includes('weekday') || lowerLine.includes('week day')) {
+        ['mon','tue','wed','thu','fri'].forEach(d => { if(!detectedDays.includes(d)) detectedDays.push(d); });
+      }
+      if (lowerLine.includes('weekend')) {
+        ['sat','sun'].forEach(d => { if(!detectedDays.includes(d)) detectedDays.push(d); });
+      }
+
+      // Detect price items — handles formats like:
+      // ITEM NAME - 10
+      // ITEM NAME $10
+      // ITEM NAME | $10
+      // Item Name - $10.00
+      const pm = line.match(priceRegex);
+      if (pm) {
+        const itemRaw  = pm[1].trim().replace(/^\W+|\W+$/g,'');
+        const price    = pm[2];
+        // Skip lines that look like headers (no letters or just numbers)
+        if (!/[a-zA-Z]/.test(itemRaw)) return;
+        // Skip very short items likely to be headers
+        if (itemRaw.length < 2) return;
+        const itemName = toTitleCase(itemRaw);
+        deals.push(`${itemName} — $${price}`);
+      }
+    });
+
+    if (deals.length === 0) {
+      setStatus('error', '⚠️ Could not detect any "Item — $price" patterns. Make sure each deal is on its own line with a price (e.g. "NEGRONI - 10" or "Draft Beer $8").');
+      return;
+    }
+
+    // Populate the deals textarea in window 1
+    const firstDeals = document.getElementById('deals-1');
+    if (firstDeals) firstDeals.value = deals.join('\n');
+
+    // Auto-fill time if detected
+    if (detectedTimes.length > 0) {
+      const startEl = document.getElementById('start-1');
+      const endEl   = document.getElementById('end-1');
+      if (startEl) startEl.value = detectedTimes[0].start;
+      if (endEl)   endEl.value   = detectedTimes[0].end;
+
+      // If multiple time windows detected, add more
+      for (let i = 1; i < detectedTimes.length; i++) {
+        addWindow();
+        const id = windowCount;
+        document.getElementById(`start-${id}`).value = detectedTimes[i].start;
+        document.getElementById(`end-${id}`).value   = detectedTimes[i].end;
+      }
+    }
+
+    // Auto-check days if detected
+    const dayOrder = ['mon','tue','wed','thu','fri','sat','sun'];
+    if (detectedDays.length > 0) {
+      document.querySelectorAll('.days-grid input').forEach(cb => {
+        cb.checked = detectedDays.includes(cb.value);
+      });
+    }
+
+    setStatus('success', `✅ Formatted ${deals.length} items successfully! Review below — check times and days, then click Generate Code.`);
+  }
+
+  addWindow();
 </script>
 </body>
 </html>
