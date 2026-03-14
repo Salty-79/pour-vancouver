@@ -143,6 +143,9 @@
     .d-window-deals { padding:0.75rem 1rem; display:flex; flex-direction:column; gap:0.4rem; }
     .d-deal { display:flex; align-items:flex-start; gap:0.5rem; font-size:0.88rem; color:var(--ink-soft); line-height:1.45; }
     .d-deal::before { content:'→'; color:var(--amber); font-weight:700; flex-shrink:0; margin-top:0.05rem; }
+    .d-category { margin-bottom:0.75rem; }
+    .d-category:last-child { margin-bottom:0; }
+    .d-category-label { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--amber-dark); margin-bottom:0.4rem; padding:0.2rem 0.5rem; background:var(--foam); border-radius:4px; display:inline-block; }
 
     .d-days { display:flex; gap:0.3rem; flex-wrap:wrap; }
     .d-day { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; font-family:'Syne',sans-serif; background:var(--cream-dark); color:var(--ink-soft); }
@@ -372,13 +375,16 @@
     // Time windows with full deals
     const windowsHTML = v.hours.map(w => {
       const isAct = active.some(a => a.startTime === w.startTime);
-      const deals = w.deals.map(d => `<div class="d-deal">${d}</div>`).join('');
+      const cats = (w.categories || []).map(cat => {
+        const items = (cat.items || []).map(d => `<div class="d-deal">${d}</div>`).join('');
+        return `<div class="d-category"><div class="d-category-label">${cat.name}</div>${items}</div>`;
+      }).join('');
       return `<div class="d-window ${isAct ? 'active' : ''}">
         <div class="d-window-header">
           <span class="d-window-time">🕐 ${fmt(w.startTime)} – ${fmt(w.endTime)}</span>
           ${isAct ? '<span class="d-window-live-tag">● Now</span>' : ''}
         </div>
-        <div class="d-window-deals">${deals}</div>
+        <div class="d-window-deals">${cats}</div>
       </div>`;
     }).join('');
 

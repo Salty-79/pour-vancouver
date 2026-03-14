@@ -99,6 +99,7 @@
       <textarea id="pasteInput" rows="8" placeholder="Paste raw menu text here...&#10;&#10;e.g.&#10;HAPPY HOUR Mon-Fri 3pm-5:30pm&#10;HOUSE WINE $8 | DRAFT BEER $6 | NEGRONI $10&#10;MARGHERITA PIZZA $12 | CHICKEN WINGS $9"></textarea>
     </div>
     <button class="ai-process-btn" id="aiBtn" onclick="runAI()">✨ Extract & Format with AI</button>
+    <button class="ai-process-btn" id="localBtn" onclick="runLocalFormat()" style="background:#6D28D9;margin-top:0.4rem">⚡ Format Text Locally (offline)</button>
     <div class="status-box" id="statusBox"></div>
   </div>
 
@@ -316,8 +317,14 @@ ${rawText.substring(0,6000)}`;
         <div class="field"><label>Start Time</label><input type="time" id="start-${id}" /></div>
         <div class="field"><label>End Time (00:00 = midnight)</label><input type="time" id="end-${id}" /></div>
       </div>
-      <div class="field"><label>Deals — one per line — "Item name — $price"</label>
-      <textarea id="deals-${id}" rows="8" placeholder="House wine — $8&#10;Classic Negroni — $10&#10;Margherita pizza — $14"></textarea></div>`;
+      <div class="field"><label>🍹 Drinks — one per line — "Item name — $price"</label>
+      <textarea id="cat-drinks-${id}" rows="4" placeholder="House wine — $8&#10;Classic Negroni — $10"></textarea></div>
+      <div class="field" style="margin-top:0.6rem"><label>🥗 Appetizers — one per line</label>
+      <textarea id="cat-appetizers-${id}" rows="4" placeholder="Chicken wings — $12&#10;Spring rolls — $9"></textarea></div>
+      <div class="field" style="margin-top:0.6rem"><label>🍽️ Mains — one per line</label>
+      <textarea id="cat-mains-${id}" rows="3" placeholder="Margherita pizza — $14"></textarea></div>
+      <div class="field" style="margin-top:0.6rem"><label>🍮 Desserts — one per line</label>
+      <textarea id="cat-desserts-${id}" rows="2" placeholder="Tiramisu — $8"></textarea></div>`;
     document.getElementById('windowsContainer').appendChild(div);
     renumberWindows();
   }

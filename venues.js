@@ -1,9 +1,13 @@
 // ============================================================
 //  POUR VANCOUVER — VENUE DATA
 //
-//  NEW FIELDS AVAILABLE:
-//  phone:   "+1 (604) 555-0123"   — optional, shows in drawer
-//  website: "https://example.com" — optional, shows in drawer
+//  STRUCTURE: each happy hour window now has "categories"
+//  instead of a flat "deals" list.
+//
+//  CATEGORIES: "Drinks" | "Appetizers" | "Mains" | "Desserts"
+//  Add only the categories that apply — empty ones are skipped.
+//
+//  ITEM FORMAT: "Item name — $price"  (em dash, Title Case)
 //
 //  DAYS:  'mon' 'tue' 'wed' 'thu' 'fri' 'sat' 'sun'
 //  TIMES: 24-hour — 3pm = "15:00", 9pm = "21:00", midnight = "24:00"
@@ -31,6 +35,65 @@ const neighbourhoods = [
 const venues = [
 
   {
+    name: "Capo and The Spritz",
+    neighbourhood: "Yaletown",
+    type: "restaurant",
+    emoji: "🍸",
+    days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+    notes: "",
+    featured: false,
+    phone: "",
+    website: "https://www.capoandspritz.com",
+    hours: [
+      {
+        startTime: "15:00",
+        endTime: "17:30",
+        categories: [
+          {
+            name: "Drinks",
+            items: [
+              "House Bianco / House Rosso — $1/oz",
+              "Classic Negroni — $10",
+              "Cello Spritz — $10",
+              "Campari Spritz — $10",
+              "Aperol Spritz — $10",
+              "Prosecco — $10",
+              "Local Draft — $9",
+              "Peroni — $10"
+            ]
+          },
+          {
+            name: "Appetizers",
+            items: [
+              "Gnocco Fritto & Bomba — $7",
+              "Olive Miste — $7",
+              "Meatballs — $16",
+              "Calamari — $15",
+              "Salumi Plate — $17",
+              "Cheese Plate — $17"
+            ]
+          },
+          {
+            name: "Mains",
+            items: [
+              "Margherita — $14",
+              "Rebel — $15",
+              "Classic — $16",
+              "Rigatoni alla Norma — $20"
+            ]
+          },
+          {
+            name: "Desserts",
+            items: [
+              "Gnocco Sweeto — $7"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
     name: "Chop Steakhouse & Bar",
     neighbourhood: "Richmond",
     type: "lounge",
@@ -38,50 +101,38 @@ const venues = [
     days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
     notes: "Lounge only — not available in main dining room",
     featured: false,
-    phone: "604 676 7676",
+    phone: "",
     website: "https://www.chopsteakhouse.com",
     hours: [
       {
         startTime: "15:00",
         endTime: "18:00",
-        deals: [
-          "Happy hour drinks & appetizers",
-          "Ask your server for current specials"
+        categories: [
+          {
+            name: "Drinks",
+            items: ["Ask your server for current drink specials"]
+          },
+          {
+            name: "Appetizers",
+            items: ["Ask your server for current food specials"]
+          }
         ]
       },
       {
         startTime: "21:00",
         endTime: "24:00",
-        deals: [
-          "Late night happy hour drinks & bites",
-          "Ask your server for current specials"
+        categories: [
+          {
+            name: "Drinks",
+            items: ["Ask your server for current late night drink specials"]
+          },
+          {
+            name: "Appetizers",
+            items: ["Ask your server for current late night food specials"]
+          }
         ]
       }
     ]
   },
 
   // ── ADD NEW VENUES ABOVE THIS LINE ───────────────────────
-  //
-  // {
-  //   name: "Venue Name",
-  //   neighbourhood: "Gastown",
-  //   type: "bar",
-  //   emoji: "🍺",
-  //   days: ["mon", "tue", "wed", "thu", "fri"],
-  //   notes: "",                        // optional
-  //   featured: false,
-  //   phone: "",                        // optional, e.g. "+1 (604) 555-0123"
-  //   website: "",                      // optional, e.g. "https://example.com"
-  //   hours: [
-  //     {
-  //       startTime: "15:00",
-  //       endTime: "18:00",
-  //       deals: [
-  //         "$5 domestic beers",
-  //         "Half-price appetizers",
-  //       ]
-  //     }
-  //   ]
-  // },
-
-];
