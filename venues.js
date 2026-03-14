@@ -136,3 +136,5 @@ const venues = [
   },
 
   // ── ADD NEW VENUES ABOVE THIS LINE ───────────────────────
+
+  ];
