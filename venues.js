@@ -210,8 +210,8 @@ const venues = [
   neighbourhood: "Yaletown",
   type: "restaurant",
   emoji: "🐖",
-  days: ["tue", "wed", "thu", "fri", "sat", "sun"],
-  notes: "See also: Monday hours differ — open 3pm to close",
+  days: ["mon"],
+  notes: "See also: Tuesday through Sunday hours differ — open 3pm to 6pm and 9pm to 11pm",
   featured: false,
   phone: "",
   website: "https://theflyingpigvan.com/menu/#appy-hour",
@@ -267,7 +267,131 @@ const venues = [
   ]
   },
 
-
+{
+  name: "Social Corner Yaletown",
+  neighbourhood: "Yaletown",
+  type: "restaurant",
+  emoji: "🤵",
+  days: ["mon", "tue", "wed", "thu", "sun"],
+  notes: "See also: Friday & Saturday Late night hours differ — 10pm to close",
+  featured: false,
+  phone: "",
+  website: "https://persesocialcorner.com/home/menu-social-corner/",
+  hours: [
+    {
+      startTime: "14:30",
+      endTime: "17:30",
+      categories: [
+      {
+        name: "Drinks",
+        items: [
+              "Rosalinda Lager — $5",
+              "Powell \"Ode de Citra\" Pale Ale — $5",
+              "Punch Bowl IPA — $5",
+              "Corona — $5",
+              "Pink Radler — $5",
+              "Sangria Blanco — $12",
+              "Sangria Rosa — $12",
+              "Sangria Tinta — $12",
+              "Oaked Aged Negroni (Yaletown only) — $15",
+              "The Old Fashioned — $15",
+              "The Negroni — $15",
+              "Ciclo Espresso Martini — $15",
+              "Vivo Reserva Sauvignon Blanc (5oz) — $10",
+              "Avenue Rosé (5oz) — $10",
+              "Vivo Reserva Malbec (5oz) — $10"
+        ]
+      },
+      {
+        name: "Appetizers",
+        items: [
+              "Bombón (Yaletown only) — $9",
+              "Costolette Greco — $9",
+              "Hummus — $9",
+              "Truffle Fries — $9",
+              "Patatas Bravas — $9",
+              "Warm Mixed Mediterranean Olives — $9",
+              "Wagyu Beef Carpaccio — $19",
+              "Calamari — $19",
+              "Goat Cheese Salad — $19",
+              "Social Corner Caesar — $19"
+        ]
+      },
+      {
+        name: "Mains",
+        items: [
+              "Gnocchi al Pomodoro — $19",
+              "Margherita Pizza — $19",
+              "Medaglioni al Tartufo e Funghi — $29",
+              "Criminale Pizza — $29",
+              "Sriracha e Brasato Pizza — $29",
+              "The Burger — $29",
+              "Pepperoni e Ricotta Pizza — $29",
+              "Rigatone Bolognese — $29",
+              "Lobster & Crab Ravioli — $39",
+              "Risotto Burro e Sablefish — $39"
+        ]
+      }
+      ]
+    },
+    {
+      startTime: "21:00",
+      endTime: "00:00",
+      categories: [
+      {
+        name: "Drinks",
+        items: [
+              "Rosalinda Lager — $5",
+              "Powell \"Ode de Citra\" Pale Ale — $5",
+              "Punch Bowl IPA — $5",
+              "Corona — $5",
+              "Pink Radler — $5",
+              "Sangria Blanco — $12",
+              "Sangria Rosa — $12",
+              "Sangria Tinta — $12",
+              "Oaked Aged Negroni (Yaletown only) — $15",
+              "The Old Fashioned — $15",
+              "The Negroni — $15",
+              "Ciclo Espresso Martini — $15",
+              "Vivo Reserva Sauvignon Blanc (5oz) — $10",
+              "Avenue Rosé (5oz) — $10",
+              "Vivo Reserva Malbec (5oz) — $10"
+        ]
+      },
+      {
+        name: "Appetizers",
+        items: [
+              "Bombón (Yaletown only) — $9",
+              "Costolette Greco — $9",
+              "Hummus — $9",
+              "Truffle Fries — $9",
+              "Patatas Bravas — $9",
+              "Warm Mixed Mediterranean Olives — $9",
+              "Wagyu Beef Carpaccio — $19",
+              "Calamari — $19",
+              "Goat Cheese Salad — $19",
+              "Social Corner Caesar — $19"
+        ]
+      },
+      {
+        name: "Mains",
+        items: [
+              "Gnocchi al Pomodoro — $19",
+              "Margherita Pizza — $19",
+              "Medaglioni al Tartufo e Funghi — $29",
+              "Criminale Pizza — $29",
+              "Sriracha e Brasato Pizza — $29",
+              "The Burger — $29",
+              "Pepperoni e Ricotta Pizza — $29",
+              "Rigatone Bolognese — $29",
+              "Lobster & Crab Ravioli — $39",
+              "Risotto Burro e Sablefish — $39"
+        ]
+      }
+      ]
+    }
+  ]
+},
   
   // ── ADD NEW VENUES ABOVE THIS LINE ───────────────────────
 
